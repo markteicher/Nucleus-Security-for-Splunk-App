@@ -1,0 +1,174 @@
+<!--
+=============================================================================
+ Nucleus Security for Splunk App
+ Navigation Definition (Classic XML)
+
+ File: default/ui/nav/default.xml
+
+ Mirrors the Nucleus Security UI navigation structure.
+ This file defines navigation only.
+=============================================================================
+-->
+
+<nav search_view="nucleus_global_dashboard" color="#2c3e50">
+
+  <!-- =================================================================== -->
+  <!-- GLOBAL DASHBOARD                                                    -->
+  <!-- =================================================================== -->
+  <collection label="Global Dashboard">
+    <!-- view file: nucleus_global_dashboard.xml -->
+    <view name="nucleus_global_dashboard"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ANALYZE                                                             -->
+  <!-- =================================================================== -->
+  <collection label="Analyze">
+    <!-- view file: nucleus_analyze.xml -->
+    <view name="nucleus_analyze"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- VULNERABILITIES                                                     -->
+  <!-- =================================================================== -->
+  <collection label="Vulnerabilities">
+    <!-- view file: nucleus_vulnerabilities.xml -->
+    <view name="nucleus_vulnerabilities"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- COMPLIANCE                                                          -->
+  <!-- =================================================================== -->
+  <collection label="Compliance">
+    <!-- view file: nucleus_compliance.xml -->
+    <view name="nucleus_compliance"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ASSETS                                                              -->
+  <!-- =================================================================== -->
+  <collection label="Assets">
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- ASSET MANAGEMENT                                                 -->
+    <!-- VIEW: nucleus_asset_management.xml                               -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_asset_management.xml -->
+    <view name="nucleus_asset_management" label="Asset Management"/>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- SOFTWARE                                                         -->
+    <!-- VIEW: nucleus_software.xml                                       -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_software.xml -->
+    <view name="nucleus_software"/>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- PORTS & SERVICES                                                 -->
+    <!-- VIEW: nucleus_ports_services.xml                                 -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_ports_services.xml -->
+    <view name="nucleus_ports_services" label="Ports &amp; Services"/>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- SSL/TLS SUMMARY                                                  -->
+    <!-- VIEW: nucleus_ssl_tls_summary.xml                                -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_ssl_tls_summary.xml -->
+    <view name="nucleus_ssl_tls_summary" label="SSL/TLS Summary"/>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- CERTIFICATE SUMMARY                                              -->
+    <!-- VIEW: nucleus_certificate_summary.xml                            -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_certificate_summary.xml -->
+    <view name="nucleus_certificate_summary" label="Certificate Summary"/>
+
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- INTEGRATION HUB                                                     -->
+  <!-- =================================================================== -->
+  <collection label="Integration Hub">
+    <!-- view file: nucleus_integration_hub.xml -->
+    <view name="nucleus_integration_hub"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ASSESSMENTS                                                         -->
+  <!-- =================================================================== -->
+  <collection label="Assessments">
+    <!-- view file: nucleus_assessments.xml -->
+    <view name="nucleus_assessments"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- AUTOMATION                                                          -->
+  <!-- =================================================================== -->
+  <collection label="Automation">
+    <!-- view file: nucleus_automation.xml -->
+    <view name="nucleus_automation"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- TICKETS                                                             -->
+  <!-- =================================================================== -->
+  <collection label="Tickets">
+    <!-- view file: nucleus_tickets.xml -->
+    <view name="nucleus_tickets"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- SEARCH                                                              -->
+  <!-- =================================================================== -->
+  <collection label="Search">
+    <!-- view file: nucleus_search.xml -->
+    <view name="nucleus_search"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- PROJECT ADMINISTRATION                                              -->
+  <!-- =================================================================== -->
+  <collection label="Project Administration">
+    <!-- view file: nucleus_project_administration.xml -->
+    <view name="nucleus_project_administration"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- HELP                                                                -->
+  <!-- =================================================================== -->
+  <collection label="Help">
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- HELP DASHBOARD                                                   -->
+    <!-- VIEW: nucleus_help.xml                                           -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_help.xml -->
+    <view name="nucleus_help"/>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- DOCUMENTATION                                                    -->
+    <!-- VIEW: nucleus_documentation.xml                                  -->
+    <!-- --------------------------------------------------------------- -->
+    <!-- view file: nucleus_documentation.xml -->
+    <view name="nucleus_documentation"/>
+
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- SUPPORT                                                             -->
+  <!-- =================================================================== -->
+  <collection label="Support">
+    <!-- view file: nucleus_support.xml -->
+    <view name="nucleus_support"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ABOUT                                                               -->
+  <!-- =================================================================== -->
+  <collection label="About">
+    <!-- view file: nucleus_about.xml -->
+    <view name="nucleus_about"/>
+  </collection>
+
+</nav>
