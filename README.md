@@ -4,7 +4,14 @@ Nucleus Security for Splunk App
 # Overview
 Nucleus integrates all your vulnerability, threat, and asset data to effectively prioritize critical exposures with business context and threat intelligence.
 
-#
+The Nucleus Security for Splunk App is a single Splunk application that ingests events from a Nucleus Security instancd using the Nucleus Security REST API. The app ingests data into a user-specified Splunk index and assigns the correct sourcetype to each event. All events are ingested in JSON format to preserve the original structure and content of the Nucleus data.
+
+The Splunk app provides dashboards, reports, and search logic for analyzing data ingested from a Nucleus Security instance.
+
+
+The Splunk App is intended to surface Nucleus Security data directly inside Splunk so that Asset Owners and operational teams can view, analyze and action Nucleus Security results without requiring access to the Nucleus Security user interface.
+
+
 
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
