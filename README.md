@@ -1,3 +1,5 @@
+![Nucleus Logo](docs/images/nucleus_logo.jpg)
+
 # Nucleus Security for Splunk App
 Nucleus Security for Splunk App
 
