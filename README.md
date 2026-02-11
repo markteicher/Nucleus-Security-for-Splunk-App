@@ -20,6 +20,22 @@ These tools are not official Nucleus Security products or utilities
 Use of this software is not covered by any license, warranty, or support agreement you may have with Nucleus
 Security.
 
+## Requirements
+
+Splunk Enterprise or Splunk Cloud
+Network connectivity to a Nucleus Security instance
+Valid Nucleus Security credentials
+
+
+---
+✅ AppInspect Compliance
+
+Proper Splunk directory structure
+Inputs disabled by default
+No hardcoded credentials
+Secure credential storage
+Raw JSON ingestion
+
 # License
 
 
