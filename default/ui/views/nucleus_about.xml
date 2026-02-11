@@ -1,1 +1,112 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_about.xml
+ Nucleus Security for Splunk App
+ About
+=============================================================================
+-->
 
+<dashboard version="1.1" theme="light">
+  <label>About Nucleus Security</label>
+
+  <!-- =============================================================== -->
+  <!-- PLATFORM INFORMATION                                            -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>Platform Information</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus_internal sourcetype="nucleus:platform"
+            | head 1
+            | fields name version environment region createdAt
+          </query>
+        </search>
+        <option name="count">1</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TENANT / ORGANIZATION INFO                                     -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>Tenant Information</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus_internal sourcetype="nucleus:tenant"
+            | head 1
+            | fields tenantId tenantName subscriptionTier
+          </query>
+        </search>
+        <option name="count">1</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- SPLUNK APP METADATA                                             -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>Splunk App Metadata</title>
+      <table>
+        <search>
+          <query>
+            | makeresults count=4
+            | streamstats count as row
+            | eval Key=case(
+                row=1,"Application",
+                row=2,"Integration Type",
+                row=3,"Data Format",
+                row=4,"Splunk Compatibility"
+              )
+            | eval Value=case(
+                row=1,"Nucleus Security for Splunk",
+                row=2,"Nucleus Security REST API",
+                row=3,"JSON",
+                row=4,"Splunk Enterprise & Splunk Cloud"
+              )
+            | table Key Value
+          </query>
+        </search>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- REFERENCES                                                      -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>References</title>
+      <table>
+        <search>
+          <query>
+            | makeresults count=3
+            | streamstats count as row
+            | eval Name=case(
+                row=1,"Nucleus Security Website",
+                row=2,"Nucleus API Documentation",
+                row=3,"Splunk Documentation"
+              )
+            | eval URL=case(
+                row=1,"https://nucleussec.com",
+                row=2,"https://api-docs.nucleussec.com/nucleus/docs/",
+                row=3,"https://docs.splunk.com"
+              )
+            | table Name URL
+          </query>
+        </search>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
