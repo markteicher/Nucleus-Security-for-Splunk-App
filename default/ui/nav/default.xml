@@ -1,165 +1,186 @@
 <!--
 =============================================================================
+ default/ui/nav/default.xml
  Nucleus Security for Splunk App
  Navigation Definition (Classic XML)
 
- File: default/ui/nav/default.xml
-
- Mirrors the Nucleus Security UI navigation structure.
  This file defines navigation only.
 =============================================================================
 -->
 
-<nav search_view="nucleus_global_dashboard" color="#2c3e50">
+<nav search_view="nucleus_global_dashboard" color="#1f2937">
 
   <!-- =================================================================== -->
-  <!-- GLOBAL DASHBOARD                                                    -->
+  <!-- DASHBOARD                                                           -->
   <!-- =================================================================== -->
-  <collection label="Global Dashboard">
+  <collection label="Dashboard">
     <!-- view file: nucleus_global_dashboard.xml -->
     <view name="nucleus_global_dashboard"/>
+
+    <!-- view file: nucleus_project_dashboard.xml -->
+    <view name="nucleus_project_dashboard"/>
+
+    <!-- view file: nucleus_executive_metrics.xml -->
+    <view name="nucleus_executive_metrics"/>
+
+    <!-- view file: nucleus_trends.xml -->
+    <view name="nucleus_trends"/>
   </collection>
 
   <!-- =================================================================== -->
-  <!-- ANALYZE                                                             -->
+  <!-- FINDINGS                                                            -->
   <!-- =================================================================== -->
-  <collection label="Analyze">
-    <!-- view file: nucleus_analyze.xml -->
-    <view name="nucleus_analyze"/>
+  <collection label="Findings">
+    <view name="nucleus_active_vulnerabilities"/>
+    <view name="nucleus_findings_properties"/>
+    <view name="nucleus_finding_fields"/>
+    <view name="nucleus_finding_severities"/>
+    <view name="nucleus_finding_statuses"/>
+    <view name="nucleus_compliance_findings"/>
+    <view name="nucleus_fixes"/>
   </collection>
 
   <!-- =================================================================== -->
-  <!-- VULNERABILITIES                                                     -->
+  <!-- EXPLORE                                                             -->
   <!-- =================================================================== -->
-  <collection label="Vulnerabilities">
-    <!-- view file: nucleus_vulnerabilities.xml -->
-    <view name="nucleus_vulnerabilities"/>
+  <collection label="Explore">
+    <view name="nucleus_all_findings"/>
+    <view name="nucleus_nql_query"/>
+    <view name="nucleus_nql_library"/>
   </collection>
 
   <!-- =================================================================== -->
-  <!-- COMPLIANCE                                                          -->
+  <!-- PRIORITIZE                                                          -->
   <!-- =================================================================== -->
-  <collection label="Compliance">
-    <!-- view file: nucleus_compliance.xml -->
-    <view name="nucleus_compliance"/>
+  <collection label="Prioritize">
+    <view name="nucleus_risk_score"/>
+    <view name="nucleus_custom_risk_score_overview"/>
+    <view name="nucleus_custom_risk_score_configure"/>
+    <view name="nucleus_custom_risk_score_operations"/>
   </collection>
 
   <!-- =================================================================== -->
   <!-- ASSETS                                                              -->
   <!-- =================================================================== -->
   <collection label="Assets">
+    <view name="nucleus_assets"/>
+    <view name="nucleus_asset_risk_classification"/>
+    <view name="nucleus_asset_matching"/>
+    <view name="nucleus_manage_assets"/>
+    <view name="nucleus_asset_groups"/>
+    <view name="nucleus_edit_assets"/>
+    <view name="nucleus_custom_asset_upload"/>
+    <view name="nucleus_custom_asset_metadata"/>
+    <view name="nucleus_merging_assets"/>
+  </collection>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- ASSET MANAGEMENT                                                 -->
-    <!-- VIEW: nucleus_asset_management.xml                               -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_asset_management.xml -->
-    <view name="nucleus_asset_management" label="Asset Management"/>
+  <!-- =================================================================== -->
+  <!-- SUPPORTED CONNECTORS                                                -->
+  <!-- =================================================================== -->
+  <collection label="Supported Connectors">
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- SOFTWARE                                                         -->
-    <!-- VIEW: nucleus_software.xml                                       -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_software.xml -->
-    <view name="nucleus_software"/>
+    <view name="nucleus_acunetix_online_onprem"/>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- PORTS & SERVICES                                                 -->
-    <!-- VIEW: nucleus_ports_services.xml                                 -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_ports_services.xml -->
-    <view name="nucleus_ports_services" label="Ports &amp; Services"/>
+    <!-- AMAZON WEB SERVICES -->
+    <collection label="Amazon Web Services">
+      <view name="nucleus_aws_getting_started"/>
+      <view name="nucleus_aws_setting_permissions"/>
+      <view name="nucleus_aws_instance_sync"/>
+      <view name="nucleus_aws_inspector2"/>
+      <view name="nucleus_aws_ecr_enhanced"/>
+      <view name="nucleus_aws_inspector_classic"/>
+      <view name="nucleus_aws_ecr_basic"/>
+    </collection>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- SSL/TLS SUMMARY                                                  -->
-    <!-- VIEW: nucleus_ssl_tls_summary.xml                                -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_ssl_tls_summary.xml -->
-    <view name="nucleus_ssl_tls_summary" label="SSL/TLS Summary"/>
+    <view name="nucleus_alert_logic"/>
+    <view name="nucleus_assetnote"/>
+    <view name="nucleus_attackforge"/>
+    <view name="nucleus_axonius"/>
+    <view name="nucleus_blackduck_sca"/>
+    <view name="nucleus_bugcrowd"/>
+    <view name="nucleus_burpsuite_pro"/>
+    <view name="nucleus_carbon_black"/>
+    <view name="nucleus_censys_asm"/>
+    <view name="nucleus_checkmarx_cxsast"/>
+    <view name="nucleus_checkmarx_one"/>
+    <view name="nucleus_crowdstrike_falcon_spotlight"/>
+    <view name="nucleus_github_advanced_security"/>
+    <view name="nucleus_hackerone"/>
+    <view name="nucleus_invicti_enterprise_acunetix"/>
+    <view name="nucleus_lacework"/>
+    <view name="nucleus_mergebase"/>
+    <view name="nucleus_microsoft_defender_cloud"/>
+    <view name="nucleus_microsoft_defender_endpoint"/>
+    <view name="nucleus_nozomi_networks"/>
+    <view name="nucleus_orca_security"/>
+    <view name="nucleus_owasp_zap"/>
+    <view name="nucleus_prisma_cloud_cspm"/>
+    <view name="nucleus_prisma_cloud_cwpp"/>
 
-    <!-- --------------------------------------------------------------- -->
-    <!-- CERTIFICATE SUMMARY                                              -->
-    <!-- VIEW: nucleus_certificate_summary.xml                            -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_certificate_summary.xml -->
-    <view name="nucleus_certificate_summary" label="Certificate Summary"/>
+    <!-- QUALYS -->
+    <collection label="Qualys">
+      <view name="nucleus_qualys_vmdr_pcs_sc"/>
+      <view name="nucleus_qualys_connector_best_practices"/>
+      <view name="nucleus_qualys_to_nucleus_vuln_sync"/>
+    </collection>
+
+    <view name="nucleus_rapid7_insightcloudsec"/>
+    <view name="nucleus_rapid7_insightvm_or_nexpose"/>
+    <view name="nucleus_rapid7_insightvm_cloud"/>
+    <view name="nucleus_recorded_future"/>
+    <view name="nucleus_runzero"/>
+    <view name="nucleus_security_scorecard"/>
+    <view name="nucleus_sentinelone"/>
+    <view name="nucleus_servicenow_cmdb"/>
+    <view name="nucleus_snyk"/>
+    <view name="nucleus_sonatype_nexus_iq"/>
+    <view name="nucleus_sonarqube_sonarcloud"/>
+    <view name="nucleus_synack"/>
+
+    <!-- TANIUM -->
+    <collection label="Tanium">
+      <view name="nucleus_tanium_asset"/>
+      <view name="nucleus_tanium_comply_compliance"/>
+      <view name="nucleus_tanium_comply_vulnerabilities"/>
+    </collection>
+
+    <!-- TENABLE -->
+    <collection label="Tenable">
+      <view name="nucleus_tenable_attack_surface_management"/>
+      <view name="nucleus_tenable_io_vm_compliance"/>
+      <view name="nucleus_tenable_securitycenter"/>
+      <view name="nucleus_tenable_cloud_security"/>
+    </collection>
+
+    <view name="nucleus_veracode"/>
+    <view name="nucleus_vigiles"/>
+    <view name="nucleus_w3af"/>
+    <view name="nucleus_wiz"/>
+    <view name="nucleus_whitehat_sentinel"/>
 
   </collection>
 
   <!-- =================================================================== -->
-  <!-- INTEGRATION HUB                                                     -->
+  <!-- ADMINISTRATION                                                      -->
   <!-- =================================================================== -->
-  <collection label="Integration Hub">
-    <!-- view file: nucleus_integration_hub.xml -->
-    <view name="nucleus_integration_hub"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- ASSESSMENTS                                                         -->
-  <!-- =================================================================== -->
-  <collection label="Assessments">
-    <!-- view file: nucleus_assessments.xml -->
-    <view name="nucleus_assessments"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- AUTOMATION                                                          -->
-  <!-- =================================================================== -->
-  <collection label="Automation">
-    <!-- view file: nucleus_automation.xml -->
-    <view name="nucleus_automation"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- TICKETS                                                             -->
-  <!-- =================================================================== -->
-  <collection label="Tickets">
-    <!-- view file: nucleus_tickets.xml -->
-    <view name="nucleus_tickets"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- SEARCH                                                              -->
-  <!-- =================================================================== -->
-  <collection label="Search">
-    <!-- view file: nucleus_search.xml -->
-    <view name="nucleus_search"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- PROJECT ADMINISTRATION                                              -->
-  <!-- =================================================================== -->
-  <collection label="Project Administration">
-    <!-- view file: nucleus_project_administration.xml -->
-    <view name="nucleus_project_administration"/>
+  <collection label="Administration">
+    <view name="nucleus_projects_asset_groups"/>
+    <view name="nucleus_users_roles_permissions"/>
+    <view name="nucleus_teams"/>
   </collection>
 
   <!-- =================================================================== -->
   <!-- HELP                                                                -->
   <!-- =================================================================== -->
   <collection label="Help">
-
-    <!-- --------------------------------------------------------------- -->
-    <!-- HELP DASHBOARD                                                   -->
-    <!-- VIEW: nucleus_help.xml                                           -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_help.xml -->
     <view name="nucleus_help"/>
-
-    <!-- --------------------------------------------------------------- -->
-    <!-- DOCUMENTATION                                                    -->
-    <!-- VIEW: nucleus_documentation.xml                                  -->
-    <!-- --------------------------------------------------------------- -->
-    <!-- view file: nucleus_documentation.xml -->
     <view name="nucleus_documentation"/>
-
   </collection>
 
   <!-- =================================================================== -->
   <!-- SUPPORT                                                             -->
   <!-- =================================================================== -->
   <collection label="Support">
-    <!-- view file: nucleus_support.xml -->
     <view name="nucleus_support"/>
   </collection>
 
@@ -167,7 +188,6 @@
   <!-- ABOUT                                                               -->
   <!-- =================================================================== -->
   <collection label="About">
-    <!-- view file: nucleus_about.xml -->
     <view name="nucleus_about"/>
   </collection>
 
