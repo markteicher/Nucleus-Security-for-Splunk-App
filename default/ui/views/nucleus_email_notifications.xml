@@ -1,0 +1,121 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_email_notifications.xml
+ Nucleus Security for Splunk App
+ Email & Notification Delivery Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>📧 Nucleus Email & Notification Delivery</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Email / Notification API ingestion   -->
+  <!-- sourcetype example: nucleus:email                               -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:email
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- DELIVERY SUMMARY                                                 -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Emails Sent</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email
+            | stats count as total_emails
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🟢 Successful Deliveries</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email status="sent"
+            | stats count as successful_deliveries
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⚠️ Failed Deliveries</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email status="failed"
+            | stats count as failed_deliveries
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- DELIVERY TREND                                                   -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Email Volume Over Time</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email
+            | timechart span=1d count by status
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- NOTIFICATION TYPE BREAKDOWN                                      -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔔 Notification Types</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email
+            | stats count by notification_type
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- DELIVERY FAILURE DETAIL                                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🚨 Email Delivery Failures</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:email status="failed"
+            | table _time recipient notification_type error_message
+            | sort - _time
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
