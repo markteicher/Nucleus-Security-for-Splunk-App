@@ -1,0 +1,130 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_custom_threat_intelligence.xml
+ Nucleus Security for Splunk App
+ Custom Threat Intelligence Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🧠 Custom Threat Intelligence</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Findings + Custom Threat ingestion   -->
+  <!-- sourcetype example: nucleus:findings                            -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:findings
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- CUSTOM INTELLIGENCE COVERAGE                                     -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | stats count as total_findings
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🧩 Custom Threat Enriched Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where isnotnull(custom_threat_flag)
+            | stats count as custom_enriched
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🚨 High Custom Threat Score</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where custom_threat_score >= 80
+            | stats count as high_custom_threat
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- CUSTOM INTELLIGENCE SOURCE DISTRIBUTION                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Custom Intelligence Sources</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | mvexpand custom_threat_source
+            | stats count by custom_threat_source
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- INTELLIGENCE STALENESS                                            -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>⏳ Custom Intelligence Older Than 90 Days</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where isnotnull(custom_threat_last_updated)
+            | eval age_days=round((now()-custom_threat_last_updated)/86400,0)
+            | where age_days > 90
+            | table asset_name cve_id custom_threat_source age_days
+            | sort - age_days
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- OVERLAP WITH KEV / EPSS                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔥 Custom + KEV + High EPSS Overlap</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where custom_threat_score >= 80 AND cisa_kev="true" AND epss_score >= 0.7
+            | table asset_name cve_id severity epss_score custom_threat_score
+            | sort - custom_threat_score
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
