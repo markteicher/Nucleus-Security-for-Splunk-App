@@ -1,0 +1,117 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_teams.xml
+ Nucleus Security for Splunk App
+ Teams Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>👥 Nucleus Teams</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Teams API ingestion                  -->
+  <!-- sourcetype example: nucleus:teams                               -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:teams
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- TEAM SUMMARY METRICS                                             -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Teams</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:teams
+            | stats count as total_teams
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>👤 Total Team Members</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:teams
+            | mvexpand members
+            | stats count as total_members
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TEAM SIZE DISTRIBUTION                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Team Size Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:teams
+            | eval team_size=mvcount(members)
+            | stats count by team_size
+            | sort team_size
+          </query>
+        </search>
+        <option name="charting.chart">column</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TEAM DETAIL TABLE                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📋 Team Details</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:teams
+            | eval team_size=mvcount(members)
+            | table team_name description team_size created_at updated_at
+            | sort team_name
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TEAM MEMBERSHIP BREAKDOWN                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔎 Team Membership Breakdown</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:teams
+            | mvexpand members
+            | table team_name members
+            | sort team_name members
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
