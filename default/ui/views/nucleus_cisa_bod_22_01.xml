@@ -1,0 +1,124 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_cisa_bod_22_01.xml
+ Nucleus Security for Splunk App
+ CISA BOD 22-01 (Known Exploited Vulnerabilities) Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🇺🇸 CISA BOD 22-01 / KEV Exposure</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Findings enriched with KEV flag      -->
+  <!-- sourcetype example: nucleus:findings                            -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- KEV SUMMARY                                                      -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total KEV Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | stats count as total_kev_findings
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🖥️ Affected Assets</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | stats dc(asset_name) as affected_assets
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⏳ KEV Findings Older Than 30 Days</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | eval age_days=round((now()-_time)/86400,0)
+            | where age_days > 30
+            | stats count as aging_kev_findings
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- KEV TREND OVER TIME                                              -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📉 KEV Findings Trend</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | timechart span=1d count
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- KEV SEVERITY DISTRIBUTION                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 KEV Severity Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | stats count by severity
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- KEV DETAIL TABLE                                                 -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🚨 Active KEV Findings</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | eval age_days=round((now()-_time)/86400,0)
+            | table asset_name cve_id severity epss_score age_days team
+            | sort - age_days
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
