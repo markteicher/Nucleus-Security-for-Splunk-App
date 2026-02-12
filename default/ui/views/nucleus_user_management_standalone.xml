@@ -1,0 +1,126 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_user_management_standalone.xml
+ Nucleus Security for Splunk App
+ Standalone User Management Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🔑 Standalone User Management</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Standalone User API ingestion        -->
+  <!-- sourcetype example: nucleus:users                               -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- ACCOUNT STATUS SUMMARY                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Standalone Users</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+            | stats count as total_standalone_users
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🟢 Active Accounts</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone" status="active"
+            | stats count as active_accounts
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⚠️ Inactive / Disabled Accounts</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+            | search status="inactive" OR status="disabled"
+            | stats count as inactive_accounts
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- ADMINISTRATIVE ACCOUNT REVIEW                                    -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔐 Administrative Standalone Accounts</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+            | search role="Admin"
+            | table username email role status last_login created_at
+            | sort username
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- ROLE DISTRIBUTION                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Role Distribution (Standalone)</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+            | stats count by role
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- FULL ACCOUNT DETAIL                                              -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📋 Standalone User Details</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users authentication_mode="standalone"
+            | eval team_count=mvcount(team)
+            | table username email role team_count status last_login created_at
+            | sort username
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
