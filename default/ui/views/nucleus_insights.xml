@@ -1,0 +1,123 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_insights.xml
+ Nucleus Security for Splunk App
+ Nucleus Insights Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>📊 Nucleus Insights</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Insights API ingestion               -->
+  <!-- sourcetype example: nucleus:insights                            -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:insights
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- INSIGHT SUMMARY                                                  -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Insight Records</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights
+            | stats count as total_insight_records
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🚨 High Severity Insight Items</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights severity="High"
+            | stats count as high_severity_items
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⏳ Aging Insight Items (90+ Days)</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights
+            | eval age_days=round((now()-_time)/86400,0)
+            | where age_days > 90
+            | stats count as aging_items
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- INSIGHT CATEGORY DISTRIBUTION                                    -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Insight Category Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights
+            | stats count by insight_type
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- INSIGHT TREND OVER TIME                                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📉 Insight Trend (30 Days)</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights
+            | timechart span=1d count by severity
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TOP INSIGHT ITEMS                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔍 Top Insight Items</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:insights
+            | table _time insight_type severity asset_group finding_count owner
+            | sort - _time
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
