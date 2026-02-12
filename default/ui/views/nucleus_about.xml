@@ -7,20 +7,26 @@
 -->
 
 <dashboard version="1.1" theme="light">
-  <label>About Nucleus Security</label>
+  <label>ℹ️ About Nucleus Security</label>
 
   <!-- =============================================================== -->
   <!-- PLATFORM INFORMATION                                            -->
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>Platform Information</title>
+      <title>🖥️ Platform Information</title>
       <table>
         <search>
           <query>
             index=nucleus_internal sourcetype="nucleus:platform"
+            | sort -_time
             | head 1
-            | fields name version environment region createdAt
+            | eval name=coalesce(name,"N/A")
+            | eval version=coalesce(version,"N/A")
+            | eval environment=coalesce(environment,"N/A")
+            | eval region=coalesce(region,"N/A")
+            | eval createdAt=coalesce(createdAt,"N/A")
+            | table name version environment region createdAt
           </query>
         </search>
         <option name="count">1</option>
@@ -30,17 +36,21 @@
   </row>
 
   <!-- =============================================================== -->
-  <!-- TENANT / ORGANIZATION INFO                                     -->
+  <!-- TENANT INFORMATION                                              -->
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>Tenant Information</title>
+      <title>🏢 Tenant Information</title>
       <table>
         <search>
           <query>
             index=nucleus_internal sourcetype="nucleus:tenant"
+            | sort -_time
             | head 1
-            | fields tenantId tenantName subscriptionTier
+            | eval tenantId=coalesce(tenantId,"N/A")
+            | eval tenantName=coalesce(tenantName,"N/A")
+            | eval subscriptionTier=coalesce(subscriptionTier,"N/A")
+            | table tenantId tenantName subscriptionTier
           </query>
         </search>
         <option name="count">1</option>
@@ -54,24 +64,15 @@
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>Splunk App Metadata</title>
+      <title>📦 Splunk App Metadata</title>
       <table>
         <search>
           <query>
-            | makeresults count=4
-            | streamstats count as row
-            | eval Key=case(
-                row=1,"Application",
-                row=2,"Integration Type",
-                row=3,"Data Format",
-                row=4,"Splunk Compatibility"
-              )
-            | eval Value=case(
-                row=1,"Nucleus Security for Splunk",
-                row=2,"Nucleus Security REST API",
-                row=3,"JSON",
-                row=4,"Splunk Enterprise & Splunk Cloud"
-              )
+            | makeresults
+            | eval Key="Application", Value="Nucleus Security for Splunk"
+            | append [| makeresults | eval Key="Integration Type", Value="Nucleus Security REST API"]
+            | append [| makeresults | eval Key="Data Format", Value="JSON"]
+            | append [| makeresults | eval Key="Splunk Compatibility", Value="Splunk Enterprise & Splunk Cloud"]
             | table Key Value
           </query>
         </search>
@@ -85,22 +86,14 @@
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>References</title>
+      <title>🔗 References</title>
       <table>
         <search>
           <query>
-            | makeresults count=3
-            | streamstats count as row
-            | eval Name=case(
-                row=1,"Nucleus Security Website",
-                row=2,"Nucleus API Documentation",
-                row=3,"Splunk Documentation"
-              )
-            | eval URL=case(
-                row=1,"https://nucleussec.com",
-                row=2,"https://api-docs.nucleussec.com/nucleus/docs/",
-                row=3,"https://docs.splunk.com"
-              )
+            | makeresults
+            | eval Name="Nucleus Security Website", URL="https://nucleussec.com"
+            | append [| makeresults | eval Name="Nucleus API Documentation", URL="https://api-docs.nucleussec.com/nucleus/docs/"]
+            | append [| makeresults | eval Name="Splunk Documentation", URL="https://docs.splunk.com"]
             | table Name URL
           </query>
         </search>
