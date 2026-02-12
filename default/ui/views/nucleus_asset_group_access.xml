@@ -1,0 +1,133 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_asset_group_access.xml
+ Nucleus Security for Splunk App
+ Asset Group Access Control Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🗂️ Asset Group Access Control</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Asset Group API ingestion            -->
+  <!-- sourcetype example: nucleus:asset_groups                        -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:asset_groups
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- ASSET GROUP SUMMARY                                              -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Asset Groups</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | stats count as total_asset_groups
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>👥 Groups with Assigned Teams</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | eval team_count=mvcount(teams)
+            | where team_count > 0
+            | stats count as groups_with_teams
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⚠️ Groups with No Access Assigned</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | eval team_count=mvcount(teams)
+            | where team_count=0 OR isnull(teams)
+            | stats count as unassigned_groups
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- ASSET GROUP TO TEAM MAPPING                                     -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔗 Asset Group → Team Mapping</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | mvexpand teams
+            | table asset_group_name teams
+            | sort asset_group_name teams
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- TEAM ACCESS DISTRIBUTION                                         -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Teams by Asset Group Coverage</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | mvexpand teams
+            | stats count by teams
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- FULL ASSET GROUP DETAIL                                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📋 Asset Group Details</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:asset_groups
+            | eval team_count=mvcount(teams)
+            | table asset_group_name description team_count created_at updated_at
+            | sort asset_group_name
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
