@@ -11,20 +11,76 @@
 <nav search_view="nucleus_global_dashboard" color="#1f2937">
 
   <!-- =================================================================== -->
-  <!-- DASHBOARD                                                           -->
+  <!-- DASHBOARDING & ANALYSIS                                             -->
   <!-- =================================================================== -->
-  <collection label="Dashboard">
-    <!-- view file: nucleus_global_dashboard.xml -->
-    <view name="nucleus_global_dashboard"/>
+  <collection label="Dashboarding & Analysis">
 
-    <!-- view file: nucleus_project_dashboard.xml -->
-    <view name="nucleus_project_dashboard"/>
+    <view name="nucleus_import_history_comparison"/>
 
-    <!-- view file: nucleus_executive_metrics.xml -->
-    <view name="nucleus_executive_metrics"/>
+    <collection label="Metrics Overview">
+      <view name="nucleus_global_dashboard"/>
+      <view name="nucleus_project_dashboard"/>
+      <view name="nucleus_custom_dashboards"/>
+      <view name="nucleus_trends_page"/>
+      <view name="nucleus_executive_metrics"/>
+    </collection>
 
-    <!-- view file: nucleus_trends.xml -->
-    <view name="nucleus_trends"/>
+    <view name="nucleus_asset_filtering"/>
+    <view name="nucleus_tracking_resolved_vulnerabilities"/>
+
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- THREAT INTELLIGENCE                                                 -->
+  <!-- =================================================================== -->
+  <collection label="Threat Intelligence">
+
+    <view name="nucleus_ti_overview"/>
+    <view name="nucleus_ti_insights_threat_ratings"/>
+    <view name="nucleus_ti_mandiant_vulnerability_intelligence"/>
+    <view name="nucleus_ti_epss_score"/>
+    <view name="nucleus_ti_cisa_bod_22_01"/>
+    <view name="nucleus_ti_shadowserver"/>
+    <view name="nucleus_ti_custom_threat_intelligence"/>
+
+    <collection label="(VIP) Vulnerability Intelligence">
+
+      <view name="nucleus_vip_what_is_vip"/>
+
+      <collection label="Quick Start">
+        <view name="nucleus_vip_getting_started"/>
+        <view name="nucleus_vip_configure_table_columns"/>
+        <view name="nucleus_vip_run_search"/>
+        <view name="nucleus_vip_save_search"/>
+        <view name="nucleus_vip_monitor_search"/>
+        <view name="nucleus_vip_add_favorite"/>
+        <view name="nucleus_vip_add_vulnerability_note"/>
+        <view name="nucleus_vip_add_vulnerability_tag"/>
+        <view name="nucleus_vip_invite_team"/>
+      </collection>
+
+      <collection label="Vulnerability Analysis">
+        <view name="nucleus_vip_how_to_search"/>
+        <view name="nucleus_vip_save_search_analysis"/>
+        <view name="nucleus_vip_vulnerability_details"/>
+        <view name="nucleus_vip_vulnerability_history"/>
+      </collection>
+
+      <collection label="Vulnerability Monitoring">
+        <view name="nucleus_vip_monitored_searches"/>
+        <view name="nucleus_vip_alerting_on_search"/>
+      </collection>
+
+      <collection label="Software Monitoring">
+        <view name="nucleus_vip_monitor_software_beta"/>
+      </collection>
+
+      <collection label="API">
+        <view name="nucleus_vip_api"/>
+      </collection>
+
+    </collection>
+
   </collection>
 
   <!-- =================================================================== -->
@@ -81,7 +137,6 @@
 
     <view name="nucleus_acunetix_online_onprem"/>
 
-    <!-- AMAZON WEB SERVICES -->
     <collection label="Amazon Web Services">
       <view name="nucleus_aws_getting_started"/>
       <view name="nucleus_aws_setting_permissions"/>
@@ -117,7 +172,6 @@
     <view name="nucleus_prisma_cloud_cspm"/>
     <view name="nucleus_prisma_cloud_cwpp"/>
 
-    <!-- QUALYS -->
     <collection label="Qualys">
       <view name="nucleus_qualys_vmdr_pcs_sc"/>
       <view name="nucleus_qualys_connector_best_practices"/>
@@ -137,14 +191,12 @@
     <view name="nucleus_sonarqube_sonarcloud"/>
     <view name="nucleus_synack"/>
 
-    <!-- TANIUM -->
     <collection label="Tanium">
       <view name="nucleus_tanium_asset"/>
       <view name="nucleus_tanium_comply_compliance"/>
       <view name="nucleus_tanium_comply_vulnerabilities"/>
     </collection>
 
-    <!-- TENABLE -->
     <collection label="Tenable">
       <view name="nucleus_tenable_attack_surface_management"/>
       <view name="nucleus_tenable_io_vm_compliance"/>
