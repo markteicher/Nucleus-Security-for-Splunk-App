@@ -10,33 +10,7 @@
   <label>ℹ️ About Nucleus Security</label>
 
   <!-- =============================================================== -->
-  <!-- PLATFORM INFORMATION                                            -->
-  <!-- =============================================================== -->
-  <row>
-    <panel>
-      <title>🖥️ Platform Information</title>
-      <table>
-        <search>
-          <query>
-            index=nucleus_internal sourcetype="nucleus:platform"
-            | sort -_time
-            | head 1
-            | eval name=coalesce(name,"N/A")
-            | eval version=coalesce(version,"N/A")
-            | eval environment=coalesce(environment,"N/A")
-            | eval region=coalesce(region,"N/A")
-            | eval createdAt=coalesce(createdAt,"N/A")
-            | table name version environment region createdAt
-          </query>
-        </search>
-        <option name="count">1</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-
-  <!-- =============================================================== -->
-  <!-- TENANT INFORMATION                                              -->
+  <!-- TENANT / ACCOUNT INFORMATION                                   -->
   <!-- =============================================================== -->
   <row>
     <panel>
@@ -49,8 +23,10 @@
             | head 1
             | eval tenantId=coalesce(tenantId,"N/A")
             | eval tenantName=coalesce(tenantName,"N/A")
+            | eval organizationName=coalesce(organizationName,"N/A")
             | eval subscriptionTier=coalesce(subscriptionTier,"N/A")
-            | table tenantId tenantName subscriptionTier
+            | eval createdAt=coalesce(createdAt,"N/A")
+            | table tenantId tenantName organizationName subscriptionTier createdAt
           </query>
         </search>
         <option name="count">1</option>
@@ -72,7 +48,7 @@
             | eval Key="Application", Value="Nucleus Security for Splunk"
             | append [| makeresults | eval Key="Integration Type", Value="Nucleus Security REST API"]
             | append [| makeresults | eval Key="Data Format", Value="JSON"]
-            | append [| makeresults | eval Key="Splunk Compatibility", Value="Splunk Enterprise & Splunk Cloud"]
+            | append [| makeresults | eval Key="Compatibility", Value="Splunk Enterprise & Splunk Cloud"]
             | table Key Value
           </query>
         </search>
