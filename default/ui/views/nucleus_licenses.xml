@@ -1,0 +1,126 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_licenses.xml
+ Nucleus Security for Splunk App
+ License Management Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>📜 Nucleus License Management</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus License API ingestion                -->
+  <!-- sourcetype example: nucleus:licenses                            -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:licenses
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- LICENSE CAPACITY SUMMARY                                         -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Licensed Assets</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | stats sum(total_capacity) as total_capacity
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🟢 Allocated / In Use</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | stats sum(used_capacity) as used_capacity
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⚠️ Available Capacity</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | eval available=total_capacity-used_capacity
+            | stats sum(available) as available_capacity
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- LICENSE UTILIZATION TREND                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 License Utilization Over Time</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | timechart span=1d max(used_capacity) as used max(total_capacity) as total
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- EXPIRATION MONITORING                                            -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>⏳ License Expiration Timeline</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | eval days_until_expiry=round((expiry_date-now())/86400,0)
+            | table license_id license_type total_capacity used_capacity expiry_date days_until_expiry
+            | sort days_until_expiry
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- HIGH UTILIZATION WARNING                                         -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🚨 High Utilization (Above 85%)</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:licenses
+            | eval utilization=round((used_capacity/total_capacity)*100,2)
+            | where utilization >= 85
+            | table license_id license_type total_capacity used_capacity utilization
+            | sort - utilization
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">50</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
