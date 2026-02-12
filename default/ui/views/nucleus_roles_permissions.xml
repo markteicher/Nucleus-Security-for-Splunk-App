@@ -1,0 +1,80 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_roles_permissions.xml
+ Nucleus Security for Splunk App
+ Roles & Permissions Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🛡️ Nucleus Roles & Permissions</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Roles API ingestion                  -->
+  <!-- sourcetype example: nucleus:roles                               -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:roles
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- ROLE SUMMARY                                                     -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Roles</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:roles
+            | stats count as total_roles
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- ROLE DISTRIBUTION                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Role Usage Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | stats count by role
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">pie</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- ROLE PERMISSIONS MATRIX                                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔐 Role Permissions</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:roles
+            | table role_name permission resource description
+            | sort role_name permission
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
