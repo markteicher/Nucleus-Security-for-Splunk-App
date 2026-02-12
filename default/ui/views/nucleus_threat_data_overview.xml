@@ -1,0 +1,145 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_threat_data_overview.xml
+ Nucleus Security for Splunk App
+ Threat Data Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🧠 Nucleus Threat Data Overview</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Findings + Threat Enrichment API     -->
+  <!-- sourcetype example: nucleus:findings                            -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:findings
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- THREAT ENRICHMENT COVERAGE                                       -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | stats count as total_findings
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🚨 CISA KEV Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings cisa_kev="true"
+            | stats count as kev_findings
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>📈 EPSS Enriched Findings</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where isnotnull(epss_score)
+            | stats count as epss_enriched
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- EPSS SCORE DISTRIBUTION                                          -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 EPSS Score Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where isnotnull(epss_score)
+            | bucket epss_score span=0.1
+            | stats count by epss_score
+            | sort epss_score
+          </query>
+        </search>
+        <option name="charting.chart">column</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- EXPLOITABILITY INDICATORS                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔥 Exploit Indicators</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | stats count by exploit_available
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">pie</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- INTELLIGENCE SOURCE ATTRIBUTION                                  -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔗 Threat Intelligence Source Attribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | stats count by threat_source
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- HIGH RISK ENRICHED FINDINGS                                      -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🚨 High EPSS + KEV Findings</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:findings
+            | where epss_score >= 0.7 AND cisa_kev="true"
+            | table asset_name cve_id severity epss_score cisa_kev
+            | sort - epss_score
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
