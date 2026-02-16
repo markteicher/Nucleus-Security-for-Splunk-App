@@ -3,116 +3,41 @@
  default/ui/nav/default.xml
  Nucleus Security for Splunk App
  Navigation Definition (Classic XML)
-
- This file defines navigation only.
 =============================================================================
 -->
 
 <nav search_view="nucleus_global_dashboard" color="#1f2937">
 
   <!-- =================================================================== -->
-  <!-- DASHBOARDING & ANALYSIS                                             -->
+  <!-- DASHBOARDS                                                          -->
   <!-- =================================================================== -->
-  <collection label="Dashboarding & Analysis">
-
-    <view name="nucleus_import_history_comparison"/>
-
-    <collection label="Metrics Overview">
-      <view name="nucleus_global_dashboard"/>
-      <view name="nucleus_project_dashboard"/>
-      <view name="nucleus_custom_dashboards"/>
-      <view name="nucleus_trends_page"/>
-      <view name="nucleus_executive_metrics"/>
-    </collection>
-
-    <view name="nucleus_asset_filtering"/>
-    <view name="nucleus_tracking_resolved_vulnerabilities"/>
-
-  </collection>
+  <view name="nucleus_global_dashboard"/>
+  <view name="nucleus_project_dashboard"/>
 
   <!-- =================================================================== -->
-  <!-- THREAT INTELLIGENCE                                                 -->
+  <!-- VULNERABILITIES                                                     -->
   <!-- =================================================================== -->
-  <collection label="Threat Intelligence">
-
-    <view name="nucleus_ti_overview"/>
-    <view name="nucleus_ti_insights_threat_ratings"/>
-    <view name="nucleus_ti_mandiant_vulnerability_intelligence"/>
-    <view name="nucleus_ti_epss_score"/>
-    <view name="nucleus_ti_cisa_bod_22_01"/>
-    <view name="nucleus_ti_shadowserver"/>
-    <view name="nucleus_ti_custom_threat_intelligence"/>
-
-    <collection label="(VIP) Vulnerability Intelligence">
-
-      <view name="nucleus_vip_what_is_vip"/>
-
-      <collection label="Quick Start">
-        <view name="nucleus_vip_getting_started"/>
-        <view name="nucleus_vip_configure_table_columns"/>
-        <view name="nucleus_vip_run_search"/>
-        <view name="nucleus_vip_save_search"/>
-        <view name="nucleus_vip_monitor_search"/>
-        <view name="nucleus_vip_add_favorite"/>
-        <view name="nucleus_vip_add_vulnerability_note"/>
-        <view name="nucleus_vip_add_vulnerability_tag"/>
-        <view name="nucleus_vip_invite_team"/>
-      </collection>
-
-      <collection label="Vulnerability Analysis">
-        <view name="nucleus_vip_how_to_search"/>
-        <view name="nucleus_vip_save_search_analysis"/>
-        <view name="nucleus_vip_vulnerability_details"/>
-        <view name="nucleus_vip_vulnerability_history"/>
-      </collection>
-
-      <collection label="Vulnerability Monitoring">
-        <view name="nucleus_vip_monitored_searches"/>
-        <view name="nucleus_vip_alerting_on_search"/>
-      </collection>
-
-      <collection label="Software Monitoring">
-        <view name="nucleus_vip_monitor_software_beta"/>
-      </collection>
-
-      <collection label="API">
-        <view name="nucleus_vip_api"/>
-      </collection>
-
-    </collection>
-
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- FINDINGS                                                            -->
-  <!-- =================================================================== -->
-  <collection label="Findings">
-    <view name="nucleus_active_vulnerabilities"/>
+  <collection label="Vulnerabilities">
     <view name="nucleus_findings_properties"/>
+    <view name="nucleus_active_vulnerabilities"/>
     <view name="nucleus_finding_fields"/>
     <view name="nucleus_finding_severities"/>
     <view name="nucleus_finding_statuses"/>
     <view name="nucleus_compliance_findings"/>
     <view name="nucleus_fixes"/>
+
+    <collection label="Explore">
+      <view name="nucleus_nql_library"/>
+      <view name="nucleus_all_findings"/>
+      <view name="nucleus_nql_query"/>
+    </collection>
   </collection>
 
   <!-- =================================================================== -->
-  <!-- EXPLORE                                                             -->
+  <!-- COMPLIANCE                                                          -->
   <!-- =================================================================== -->
-  <collection label="Explore">
-    <view name="nucleus_all_findings"/>
-    <view name="nucleus_nql_query"/>
-    <view name="nucleus_nql_library"/>
-  </collection>
-
-  <!-- =================================================================== -->
-  <!-- PRIORITIZE                                                          -->
-  <!-- =================================================================== -->
-  <collection label="Prioritize">
-    <view name="nucleus_risk_score"/>
-    <view name="nucleus_custom_risk_score_overview"/>
-    <view name="nucleus_custom_risk_score_configure"/>
-    <view name="nucleus_custom_risk_score_operations"/>
+  <collection label="Compliance">
+    <view name="nucleus_compliance_findings"/>
   </collection>
 
   <!-- =================================================================== -->
@@ -131,116 +56,53 @@
   </collection>
 
   <!-- =================================================================== -->
-  <!-- SUPPORTED CONNECTORS                                                -->
+  <!-- DATA INGEST                                                         -->
   <!-- =================================================================== -->
-  <collection label="Supported Connectors">
-
-    <view name="nucleus_acunetix_online_onprem"/>
-
-    <collection label="Amazon Web Services">
-      <view name="nucleus_aws_getting_started"/>
-      <view name="nucleus_aws_setting_permissions"/>
-      <view name="nucleus_aws_instance_sync"/>
-      <view name="nucleus_aws_inspector2"/>
-      <view name="nucleus_aws_ecr_enhanced"/>
-      <view name="nucleus_aws_inspector_classic"/>
-      <view name="nucleus_aws_ecr_basic"/>
-    </collection>
-
-    <view name="nucleus_alert_logic"/>
-    <view name="nucleus_assetnote"/>
-    <view name="nucleus_attackforge"/>
-    <view name="nucleus_axonius"/>
-    <view name="nucleus_blackduck_sca"/>
-    <view name="nucleus_bugcrowd"/>
-    <view name="nucleus_burpsuite_pro"/>
-    <view name="nucleus_carbon_black"/>
-    <view name="nucleus_censys_asm"/>
-    <view name="nucleus_checkmarx_cxsast"/>
-    <view name="nucleus_checkmarx_one"/>
-    <view name="nucleus_crowdstrike_falcon_spotlight"/>
-    <view name="nucleus_github_advanced_security"/>
-    <view name="nucleus_hackerone"/>
-    <view name="nucleus_invicti_enterprise_acunetix"/>
-    <view name="nucleus_lacework"/>
-    <view name="nucleus_mergebase"/>
-    <view name="nucleus_microsoft_defender_cloud"/>
-    <view name="nucleus_microsoft_defender_endpoint"/>
-    <view name="nucleus_nozomi_networks"/>
-    <view name="nucleus_orca_security"/>
-    <view name="nucleus_owasp_zap"/>
-    <view name="nucleus_prisma_cloud_cspm"/>
-    <view name="nucleus_prisma_cloud_cwpp"/>
-
-    <collection label="Qualys">
-      <view name="nucleus_qualys_vmdr_pcs_sc"/>
-      <view name="nucleus_qualys_connector_best_practices"/>
-      <view name="nucleus_qualys_to_nucleus_vuln_sync"/>
-    </collection>
-
-    <view name="nucleus_rapid7_insightcloudsec"/>
-    <view name="nucleus_rapid7_insightvm_or_nexpose"/>
-    <view name="nucleus_rapid7_insightvm_cloud"/>
-    <view name="nucleus_recorded_future"/>
-    <view name="nucleus_runzero"/>
-    <view name="nucleus_security_scorecard"/>
-    <view name="nucleus_sentinelone"/>
-    <view name="nucleus_servicenow_cmdb"/>
-    <view name="nucleus_snyk"/>
-    <view name="nucleus_sonatype_nexus_iq"/>
-    <view name="nucleus_sonarqube_sonarcloud"/>
-    <view name="nucleus_synack"/>
-
-    <collection label="Tanium">
-      <view name="nucleus_tanium_asset"/>
-      <view name="nucleus_tanium_comply_compliance"/>
-      <view name="nucleus_tanium_comply_vulnerabilities"/>
-    </collection>
-
-    <collection label="Tenable">
-      <view name="nucleus_tenable_attack_surface_management"/>
-      <view name="nucleus_tenable_io_vm_compliance"/>
-      <view name="nucleus_tenable_securitycenter"/>
-      <view name="nucleus_tenable_cloud_security"/>
-    </collection>
-
-    <view name="nucleus_veracode"/>
-    <view name="nucleus_vigiles"/>
-    <view name="nucleus_w3af"/>
-    <view name="nucleus_wiz"/>
-    <view name="nucleus_whitehat_sentinel"/>
-
+  <collection label="Data Ingest">
+    <view name="nucleus_import_history_comparison"/>
   </collection>
 
   <!-- =================================================================== -->
-  <!-- ADMINISTRATION                                                      -->
+  <!-- REPORTS                                                             -->
   <!-- =================================================================== -->
-  <collection label="Administration">
-    <view name="nucleus_projects_asset_groups"/>
+  <collection label="Reports">
+    <view name="nucleus_executive_metrics"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ASSESSMENTS                                                         -->
+  <!-- =================================================================== -->
+  <view name="nucleus_trends_page"/>
+
+  <!-- =================================================================== -->
+  <!-- AUTOMATION                                                          -->
+  <!-- =================================================================== -->
+  <view name="nucleus_custom_dashboards"/>
+
+  <!-- =================================================================== -->
+  <!-- PROJECT ADMINISTRATION                                              -->
+  <!-- =================================================================== -->
+  <collection label="Project Administration">
     <view name="nucleus_users_roles_permissions"/>
     <view name="nucleus_teams"/>
+    <view name="nucleus_manage_access_asset_groups_agac"/>
+    <view name="nucleus_weighting_risk"/>
   </collection>
 
   <!-- =================================================================== -->
   <!-- HELP                                                                -->
   <!-- =================================================================== -->
-  <collection label="Help">
-    <view name="nucleus_help"/>
-    <view name="nucleus_documentation"/>
-  </collection>
+  <view name="nucleus_help"/>
+  <view name="nucleus_documentation"/>
 
   <!-- =================================================================== -->
   <!-- SUPPORT                                                             -->
   <!-- =================================================================== -->
-  <collection label="Support">
-    <view name="nucleus_support"/>
-  </collection>
+  <view name="nucleus_support"/>
 
   <!-- =================================================================== -->
   <!-- ABOUT                                                               -->
   <!-- =================================================================== -->
-  <collection label="About">
-    <view name="nucleus_about"/>
-  </collection>
+  <view name="nucleus_about"/>
 
 </nav>
