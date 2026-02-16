@@ -183,7 +183,7 @@ Splunk Enterprise or Splunk Cloud
 Network connectivity to a Nucleus Security instance
 Valid Nucleus Security credentials
 
----
+
 
 ---
 ✅ AppInspect Compliance
