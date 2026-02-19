@@ -7,60 +7,67 @@
 -->
 
 <dashboard version="1.1" theme="light">
-  <label>Nucleus Security for Splunk</label>
+  <label>About Nucleus Security for Splunk App</label>
 
   <!-- =============================================================== -->
-  <!-- ROW 1: VERSION / TENANT / REFERENCES                            -->
+  <!-- ROW 1: VERSION / LICENSING / REFERENCES / CAPABILITIES         -->
   <!-- =============================================================== -->
   <row>
 
+    <!-- VERSION -->
     <panel>
       <title>🧩 Version Information</title>
       <html>
         <p><strong>App Version:</strong> 1.0.0</p>
-        <p><strong>Integration Type:</strong> Nucleus Security REST API</p>
+        <p><strong>Platform:</strong> Nucleus Security</p>
         <p><strong>Build Type:</strong> Standalone Splunk Application</p>
       </html>
     </panel>
 
+    <!-- LICENSING -->
     <panel>
-      <title>🏢 Tenant Information</title>
-      <table>
-        <search>
-          <query>
-            index=nucleus_internal sourcetype="nucleus:tenant"
-            | sort -_time
-            | head 1
-            | eval tenantId=coalesce(tenantId,"N/A")
-            | eval tenantName=coalesce(tenantName,"N/A")
-            | eval organizationName=coalesce(organizationName,"N/A")
-            | eval subscriptionTier=coalesce(subscriptionTier,"N/A")
-            | eval createdAt=coalesce(createdAt,"N/A")
-            | table tenantId tenantName organizationName subscriptionTier createdAt
-          </query>
-        </search>
-        <option name="count">1</option>
-        <option name="wrap">true</option>
-      </table>
+      <title>⚖️ Licensing</title>
+      <html>
+        <p>Nucleus Security is a commercial vulnerability and risk management platform.</p>
+        <p>This Splunk App is an independent integration and is not an official Nucleus Security product.</p>
+        <p>Use of the Nucleus platform is governed by Nucleus Security licensing terms.</p>
+      </html>
     </panel>
 
+    <!-- REFERENCES -->
     <panel>
       <title>🔗 References</title>
       <html>
-        <p>https://nucleussec.com</p>
+        <p>https://nucleussec.com/platform/</p>
         <p>https://api-docs.nucleussec.com/nucleus/docs/</p>
         <p>https://docs.splunk.com</p>
       </html>
     </panel>
 
+    <!-- CAPABILITIES -->
+    <panel>
+      <title>🛠️ Capabilities</title>
+      <html>
+        <ul>
+          <li>Vulnerability Aggregation</li>
+          <li>Risk Prioritization</li>
+          <li>Vulnerability Remediation</li>
+          <li>Vulnerability Intelligence</li>
+          <li>Asset Management</li>
+          <li>Plan of Action and Milestones (POAM)</li>
+          <li>Compliance Frameworks</li>
+          <li>MCP Server</li>
+        </ul>
+      </html>
+    </panel>
+
   </row>
-
-
 
   <!-- =============================================================== -->
   <!-- ROW 2: APPLICATION INFORMATION                                  -->
   <!-- =============================================================== -->
   <row>
+
     <panel>
       <title>📦 Application Information</title>
       <html>
@@ -68,88 +75,80 @@
 
         <p><strong>What is Nucleus Security:</strong></p>
         <p>
-        Nucleus Security is a vulnerability and exposure management platform
-        that centralizes findings from multiple security tools, correlates risk,
-        and enables unified prioritization and remediation workflows.
+        Nucleus Security is a risk-based vulnerability management platform designed to
+        aggregate vulnerability data from multiple security tools, prioritize risk,
+        and operationalize remediation across enterprise environments.
         </p>
 
         <p><strong>Why This Application Exists:</strong></p>
         <p>
-        This Splunk application ingests and operationalizes Nucleus data,
-        enabling advanced analytics, reporting, correlation, and enterprise
-        risk modeling within Splunk.
+        This Splunk application operationalizes Nucleus platform data inside Splunk,
+        transforming aggregated vulnerability and risk intelligence into searchable,
+        correlated, and analyzable enterprise records supporting remediation,
+        governance, and compliance programs.
         </p>
 
-        <p><strong>Primary Integration:</strong></p>
-        <ul>
-          <li>Nucleus REST API (JSON)</li>
-        </ul>
+        <p><strong>Integration Type:</strong> REST API</p>
+        <p><strong>Data Format:</strong> JSON</p>
       </html>
     </panel>
+
   </row>
 
-
-
   <!-- =============================================================== -->
-  <!-- ROW 3: CORE DATA DOMAINS                                        -->
+  <!-- ROW 3: INTENDED AUDIENCE                                        -->
   <!-- =============================================================== -->
   <row>
-    <panel>
-      <title>🗂️ Core Data Domains</title>
-      <html>
-        <ul>
-          <li><strong>Assets:</strong> Systems and environments tracked within Nucleus.</li>
-          <li><strong>Findings:</strong> Vulnerability and exposure records aggregated from integrated tools.</li>
-          <li><strong>Projects:</strong> Organizational risk initiatives and remediation tracking.</li>
-          <li><strong>Tool Integrations:</strong> Connected vulnerability scanners and security platforms.</li>
-          <li><strong>Risk Scoring:</strong> Normalized and calculated risk metrics across sources.</li>
-        </ul>
-      </html>
-    </panel>
-  </row>
 
-
-
-  <!-- =============================================================== -->
-  <!-- ROW 4: INTENDED AUDIENCE                                        -->
-  <!-- =============================================================== -->
-  <row>
     <panel>
       <title>👥 Intended Audience</title>
       <html>
         <ul>
-          <li>Security teams and vulnerability analysts</li>
-          <li>Enterprise risk management teams</li>
-          <li>Security operations centers (SOC)</li>
-          <li>Compliance and governance teams</li>
-          <li>Security engineers and platform administrators</li>
-          <li>Executive leadership requiring risk visibility</li>
-          <li>DevSecOps and application security teams</li>
+          <li>Security Teams (CISOs, Analysts, Architects)</li>
+          <li>IT Operations and Remediation Teams</li>
+          <li>Developers and Product Owners</li>
+          <li>Federal Government and Defense Contractors</li>
+        </ul>
+
+        <p><strong>Ideal Use Case Scenarios:</strong></p>
+        <ul>
+          <li>Enterprise organizations (500+ employees)</li>
+          <li>Organizations with fragmented security tooling</li>
+          <li>Teams managing high-volume vulnerability data</li>
         </ul>
       </html>
     </panel>
+
   </row>
 
-
-
   <!-- =============================================================== -->
-  <!-- ROW 5: OPERATIONAL CATEGORIES                                   -->
+  <!-- ROW 4: OPERATIONAL CATEGORIES                                   -->
   <!-- =============================================================== -->
   <row>
+
     <panel>
       <title>📊 Operational Categories</title>
       <html>
         <ul>
-          <li>Vulnerability aggregation and normalization</li>
-          <li>Risk scoring and prioritization</li>
-          <li>Cross-platform security tool integration</li>
-          <li>Exposure management analytics</li>
-          <li>Compliance and audit reporting</li>
-          <li>Remediation tracking and metrics</li>
-          <li>Executive risk dashboards</li>
+          <li>Vulnerability Aggregation and Normalization</li>
+          <li>Risk Prioritization and Remediation Planning</li>
+          <li>Vulnerability Remediation Tracking</li>
+          <li>Vulnerability Intelligence and Context Enrichment</li>
+          <li>Asset Visibility and Exposure Management</li>
+          <li>POAM Tracking and Audit Reporting</li>
+          <li>Compliance Framework Alignment</li>
+          <li>Security Platform Integration and Automation (MCP Server)</li>
+        </ul>
+
+        <p><strong>Solutions:</strong></p>
+        <ul>
+          <li>Public Sector</li>
+          <li>Federal Government</li>
+          <li>State, Local, and Education (SLED)</li>
         </ul>
       </html>
     </panel>
+
   </row>
 
 </dashboard>
