@@ -4,27 +4,32 @@
  Nucleus Security for Splunk App
  About
 =============================================================================
--->
-
-<dashboard version="1.1" theme="light">
+--><dashboard version="1.1" theme="light">
   <label>About Nucleus Security for Splunk App</label>
-
   <!-- =============================================================== -->
   <!-- ROW 1: VERSION / LICENSING / REFERENCES / CAPABILITIES         -->
   <!-- =============================================================== -->
+  <!-- =============================================================== -->
+  <!-- ROW 2: APPLICATION INFORMATION                                  -->
+  <!-- =============================================================== -->
+  <!-- =============================================================== -->
+  <!-- ROW 3: INTENDED AUDIENCE                                        -->
+  <!-- =============================================================== -->
+  <!-- =============================================================== -->
+  <!-- ROW 4: OPERATIONAL CATEGORIES                                   -->
+  <!-- =============================================================== -->
   <row>
-
-    <!-- VERSION -->
     <panel>
       <title>🧩 Version Information</title>
       <html>
-        <p><strong>App Version:</strong> 1.0.0</p>
-        <p><strong>Platform:</strong> Nucleus Security</p>
-        <p><strong>Build Type:</strong> Standalone Splunk Application</p>
+        <p>
+          <strong>App Version:</strong> 1.0.0</p>
+        <p>
+          <strong>Platform:</strong> Nucleus Security</p>
+        <p>
+          <strong>Build Type:</strong> Standalone Splunk Application</p>
       </html>
     </panel>
-
-    <!-- LICENSING -->
     <panel>
       <title>⚖️ Licensing</title>
       <html>
@@ -33,8 +38,6 @@
         <p>Use of the Nucleus platform is governed by Nucleus Security licensing terms.</p>
       </html>
     </panel>
-
-    <!-- REFERENCES -->
     <panel>
       <title>🔗 References</title>
       <html>
@@ -43,8 +46,6 @@
         <p>https://docs.splunk.com</p>
       </html>
     </panel>
-
-    <!-- CAPABILITIES -->
     <panel>
       <title>🛠️ Capabilities</title>
       <html>
@@ -60,27 +61,26 @@
         </ul>
       </html>
     </panel>
-
   </row>
-
-  <!-- =============================================================== -->
-  <!-- ROW 2: APPLICATION INFORMATION                                  -->
-  <!-- =============================================================== -->
   <row>
-
     <panel>
       <title>📦 Application Information</title>
       <html>
-        <p><strong>Application Name:</strong> Nucleus Security for Splunk</p>
+        <p>
+          <strong>Application Name:</strong> Nucleus Security for Splunk</p>
 
-        <p><strong>What is Nucleus Security:</strong></p>
+        <p>
+          <strong>What is Nucleus Security:</strong>
+        </p>
         <p>
         Nucleus Security is a risk-based vulnerability management platform designed to
         aggregate vulnerability data from multiple security tools, prioritize risk,
         and operationalize remediation across enterprise environments.
         </p>
 
-        <p><strong>Why This Application Exists:</strong></p>
+        <p>
+          <strong>Why This Application Exists:</strong>
+        </p>
         <p>
         This Splunk application operationalizes Nucleus platform data inside Splunk,
         transforming aggregated vulnerability and risk intelligence into searchable,
@@ -88,18 +88,12 @@
         governance, and compliance programs.
         </p>
 
-        <p><strong>Integration Type:</strong> REST API</p>
-        <p><strong>Data Format:</strong> JSON</p>
+        <p>
+          <strong>Integration Type:</strong> REST API</p>
+        <p>
+          <strong>Data Format:</strong> JSON</p>
       </html>
     </panel>
-
-  </row>
-
-  <!-- =============================================================== -->
-  <!-- ROW 3: INTENDED AUDIENCE                                        -->
-  <!-- =============================================================== -->
-  <row>
-
     <panel>
       <title>👥 Intended Audience</title>
       <html>
@@ -110,7 +104,9 @@
           <li>Federal Government and Defense Contractors</li>
         </ul>
 
-        <p><strong>Ideal Use Case Scenarios:</strong></p>
+        <p>
+          <strong>Ideal Use Case Scenarios:</strong>
+        </p>
         <ul>
           <li>Enterprise organizations (500+ employees)</li>
           <li>Organizations with fragmented security tooling</li>
@@ -118,14 +114,6 @@
         </ul>
       </html>
     </panel>
-
-  </row>
-
-  <!-- =============================================================== -->
-  <!-- ROW 4: OPERATIONAL CATEGORIES                                   -->
-  <!-- =============================================================== -->
-  <row>
-
     <panel>
       <title>📊 Operational Categories</title>
       <html>
@@ -140,7 +128,9 @@
           <li>Security Platform Integration and Automation (MCP Server)</li>
         </ul>
 
-        <p><strong>Solutions:</strong></p>
+        <p>
+          <strong>Solutions:</strong>
+        </p>
         <ul>
           <li>Public Sector</li>
           <li>Federal Government</li>
@@ -148,7 +138,5 @@
         </ul>
       </html>
     </panel>
-
   </row>
-
 </dashboard>
