@@ -7,12 +7,22 @@
 -->
 
 <dashboard version="1.1" theme="light">
-  <label>ℹ️ About Nucleus Security</label>
+  <label>Nucleus Security for Splunk</label>
 
   <!-- =============================================================== -->
-  <!-- TENANT / ACCOUNT INFORMATION                                   -->
+  <!-- ROW 1: VERSION / TENANT / REFERENCES                            -->
   <!-- =============================================================== -->
   <row>
+
+    <panel>
+      <title>🧩 Version Information</title>
+      <html>
+        <p><strong>App Version:</strong> 1.0.0</p>
+        <p><strong>Integration Type:</strong> Nucleus Security REST API</p>
+        <p><strong>Build Type:</strong> Standalone Splunk Application</p>
+      </html>
+    </panel>
+
     <panel>
       <title>🏢 Tenant Information</title>
       <table>
@@ -33,48 +43,112 @@
         <option name="wrap">true</option>
       </table>
     </panel>
+
+    <panel>
+      <title>🔗 References</title>
+      <html>
+        <p>https://nucleussec.com</p>
+        <p>https://api-docs.nucleussec.com/nucleus/docs/</p>
+        <p>https://docs.splunk.com</p>
+      </html>
+    </panel>
+
   </row>
 
+
+
   <!-- =============================================================== -->
-  <!-- SPLUNK APP METADATA                                             -->
+  <!-- ROW 2: APPLICATION INFORMATION                                  -->
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>📦 Splunk App Metadata</title>
-      <table>
-        <search>
-          <query>
-            | makeresults
-            | eval Key="Application", Value="Nucleus Security for Splunk"
-            | append [| makeresults | eval Key="Integration Type", Value="Nucleus Security REST API"]
-            | append [| makeresults | eval Key="Data Format", Value="JSON"]
-            | append [| makeresults | eval Key="Compatibility", Value="Splunk Enterprise & Splunk Cloud"]
-            | table Key Value
-          </query>
-        </search>
-        <option name="wrap">true</option>
-      </table>
+      <title>📦 Application Information</title>
+      <html>
+        <p><strong>Application Name:</strong> Nucleus Security for Splunk</p>
+
+        <p><strong>What is Nucleus Security:</strong></p>
+        <p>
+        Nucleus Security is a vulnerability and exposure management platform
+        that centralizes findings from multiple security tools, correlates risk,
+        and enables unified prioritization and remediation workflows.
+        </p>
+
+        <p><strong>Why This Application Exists:</strong></p>
+        <p>
+        This Splunk application ingests and operationalizes Nucleus data,
+        enabling advanced analytics, reporting, correlation, and enterprise
+        risk modeling within Splunk.
+        </p>
+
+        <p><strong>Primary Integration:</strong></p>
+        <ul>
+          <li>Nucleus REST API (JSON)</li>
+        </ul>
+      </html>
     </panel>
   </row>
 
+
+
   <!-- =============================================================== -->
-  <!-- REFERENCES                                                      -->
+  <!-- ROW 3: CORE DATA DOMAINS                                        -->
   <!-- =============================================================== -->
   <row>
     <panel>
-      <title>🔗 References</title>
-      <table>
-        <search>
-          <query>
-            | makeresults
-            | eval Name="Nucleus Security Website", URL="https://nucleussec.com"
-            | append [| makeresults | eval Name="Nucleus API Documentation", URL="https://api-docs.nucleussec.com/nucleus/docs/"]
-            | append [| makeresults | eval Name="Splunk Documentation", URL="https://docs.splunk.com"]
-            | table Name URL
-          </query>
-        </search>
-        <option name="wrap">true</option>
-      </table>
+      <title>🗂️ Core Data Domains</title>
+      <html>
+        <ul>
+          <li><strong>Assets:</strong> Systems and environments tracked within Nucleus.</li>
+          <li><strong>Findings:</strong> Vulnerability and exposure records aggregated from integrated tools.</li>
+          <li><strong>Projects:</strong> Organizational risk initiatives and remediation tracking.</li>
+          <li><strong>Tool Integrations:</strong> Connected vulnerability scanners and security platforms.</li>
+          <li><strong>Risk Scoring:</strong> Normalized and calculated risk metrics across sources.</li>
+        </ul>
+      </html>
+    </panel>
+  </row>
+
+
+
+  <!-- =============================================================== -->
+  <!-- ROW 4: INTENDED AUDIENCE                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>👥 Intended Audience</title>
+      <html>
+        <ul>
+          <li>Security teams and vulnerability analysts</li>
+          <li>Enterprise risk management teams</li>
+          <li>Security operations centers (SOC)</li>
+          <li>Compliance and governance teams</li>
+          <li>Security engineers and platform administrators</li>
+          <li>Executive leadership requiring risk visibility</li>
+          <li>DevSecOps and application security teams</li>
+        </ul>
+      </html>
+    </panel>
+  </row>
+
+
+
+  <!-- =============================================================== -->
+  <!-- ROW 5: OPERATIONAL CATEGORIES                                   -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Operational Categories</title>
+      <html>
+        <ul>
+          <li>Vulnerability aggregation and normalization</li>
+          <li>Risk scoring and prioritization</li>
+          <li>Cross-platform security tool integration</li>
+          <li>Exposure management analytics</li>
+          <li>Compliance and audit reporting</li>
+          <li>Remediation tracking and metrics</li>
+          <li>Executive risk dashboards</li>
+        </ul>
+      </html>
     </panel>
   </row>
 
