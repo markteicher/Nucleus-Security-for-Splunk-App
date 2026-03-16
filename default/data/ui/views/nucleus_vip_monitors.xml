@@ -1,0 +1,123 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_vip_monitors.xml
+ Nucleus Security for Splunk App
+ Vulnerability Intelligence Platform (VIP) Monitoring Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🔔 VIP Monitored Searches</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus VIP API ingestion                    -->
+  <!-- sourcetype example: nucleus:vip                                 -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:vip
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- VIP CONFIGURATION SUMMARY                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total VIP Monitors</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip
+            | stats dc(monitor_name) as total_monitors
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🟢 Active Monitors</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip status="enabled"
+            | stats dc(monitor_name) as active_monitors
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>⚠️ Disabled Monitors</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip status="disabled"
+            | stats dc(monitor_name) as disabled_monitors
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- VIP TRIGGER TREND                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 VIP Trigger Volume (30 Days)</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip
+            | timechart span=1d count by monitor_name
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- HIGH-SEVERITY TRIGGERS                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🚨 High Severity VIP Triggers</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip severity="High"
+            | table _time monitor_name asset_name cve_id severity owner
+            | sort - _time
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- OVER-TRIGGER DETECTION                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>⚖️ Monitors With High Trigger Volume</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:vip
+            | stats count by monitor_name
+            | where count > 100
+            | sort - count
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">50</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>

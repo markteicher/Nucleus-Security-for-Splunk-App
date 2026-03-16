@@ -1,0 +1,105 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_system_use_notification.xml
+ Nucleus Security for Splunk App
+ System Use Notification Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>⚖️ System Use Notification</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus System Use API ingestion             -->
+  <!-- sourcetype example: nucleus:system_notification                 -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:system_notification
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- NOTIFICATION STATUS                                              -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Notification Status</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:system_notification
+            | stats latest(enabled) as enabled
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🕒 Last Updated</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:system_notification
+            | stats latest(updated_at) as last_updated
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>👤 Last Modified By</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:system_notification
+            | stats latest(updated_by) as modified_by
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- CURRENT NOTIFICATION TEXT                                        -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📜 Current Notification Text</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:system_notification
+            | stats latest(notification_text) as notification_text
+            | table notification_text
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">1</option>
+      </table>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- CHANGE HISTORY                                                   -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Notification Change History</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:system_notification
+            | table _time updated_by enabled
+            | sort - _time
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">50</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>

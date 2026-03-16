@@ -1,0 +1,108 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_users.xml
+ Nucleus Security for Splunk App
+ Users Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>👤 Nucleus Users</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Users API ingestion                  -->
+  <!-- sourcetype example: nucleus:users                               -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:users
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- USER METRICS                                                     -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Users</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | stats count as total_users
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🔐 Administrative Users</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | search role="Admin"
+            | stats count as admin_users
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🟢 Active Users</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | search status="active"
+            | stats count as active_users
+          </query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- USER ROLE DISTRIBUTION                                           -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Users by Role</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | stats count by role
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- USER DETAIL TABLE                                                -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📋 User Details</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:users
+            | table username email role team status last_login created_at
+            | sort username
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">100</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>

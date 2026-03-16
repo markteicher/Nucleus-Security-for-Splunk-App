@@ -1,0 +1,121 @@
+<!--
+=============================================================================
+ default/data/ui/views/nucleus_shadowserver.xml
+ Nucleus Security for Splunk App
+ Shadowserver Exposure Intelligence Overview
+=============================================================================
+-->
+
+<dashboard version="1.1" theme="light">
+  <label>🌐 Shadowserver Exposure Intelligence</label>
+
+  <!-- =============================================================== -->
+  <!-- BASE SEARCH                                                      -->
+  <!-- Data expected from Nucleus Shadowserver enrichment ingestion    -->
+  <!-- sourcetype example: nucleus:shadowserver                        -->
+  <!-- =============================================================== -->
+  <search>
+    <query>
+      index=nucleus sourcetype=nucleus:shadowserver
+    </query>
+  </search>
+
+  <!-- =============================================================== -->
+  <!-- EXPOSURE SUMMARY                                                 -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📊 Total Shadowserver Observations</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver
+            | stats count as total_observations
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🖥️ Affected Assets</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver
+            | stats dc(asset_name) as affected_assets
+          </query>
+        </search>
+      </single>
+    </panel>
+
+    <panel>
+      <title>🚨 High-Risk Exposure Flags</title>
+      <single>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver severity="High"
+            | stats count as high_risk_flags
+          </query>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- EXPOSURE CATEGORY DISTRIBUTION                                   -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📈 Exposure Category Distribution</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver
+            | stats count by exposure_type
+            | sort - count
+          </query>
+        </search>
+        <option name="charting.chart">bar</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- OPEN SERVICE TREND                                               -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>📉 Exposure Trend Over Time</title>
+      <chart>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver
+            | timechart span=1d count
+          </query>
+        </search>
+        <option name="charting.chart">line</option>
+      </chart>
+    </panel>
+  </row>
+
+  <!-- =============================================================== -->
+  <!-- OPEN PORT / SERVICE DETAIL                                       -->
+  <!-- =============================================================== -->
+  <row>
+    <panel>
+      <title>🔎 Open Service Details</title>
+      <table>
+        <search>
+          <query>
+            index=nucleus sourcetype=nucleus:shadowserver
+            | table _time asset_name ip_address port protocol exposure_type severity
+            | sort - _time
+          </query>
+        </search>
+        <option name="wrap">true</option>
+        <option name="count">200</option>
+      </table>
+    </panel>
+  </row>
+
+</dashboard>
