@@ -1,1 +1,108 @@
+<!--
+=============================================================================
+ default/ui/nav/default.xml
+ Nucleus Security for Splunk App
+ Navigation Definition (Classic XML)
+=============================================================================
+-->
 
+<nav search_view="nucleus_global_dashboard" color="#1f2937">
+
+  <!-- =================================================================== -->
+  <!-- DASHBOARDS                                                          -->
+  <!-- =================================================================== -->
+  <view name="nucleus_global_dashboard"/>
+  <view name="nucleus_project_dashboard"/>
+
+  <!-- =================================================================== -->
+  <!-- VULNERABILITIES                                                     -->
+  <!-- =================================================================== -->
+  <collection label="Vulnerabilities">
+    <view name="nucleus_findings_properties"/>
+    <view name="nucleus_active_vulnerabilities"/>
+    <view name="nucleus_finding_fields"/>
+    <view name="nucleus_finding_severities"/>
+    <view name="nucleus_finding_statuses"/>
+    <view name="nucleus_compliance_findings"/>
+    <view name="nucleus_fixes"/>
+
+    <collection label="Explore">
+      <view name="nucleus_nql_library"/>
+      <view name="nucleus_all_findings"/>
+      <view name="nucleus_nql_query"/>
+    </collection>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- COMPLIANCE                                                          -->
+  <!-- =================================================================== -->
+  <collection label="Compliance">
+    <view name="nucleus_compliance_findings"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ASSETS                                                              -->
+  <!-- =================================================================== -->
+  <collection label="Assets">
+    <view name="nucleus_assets"/>
+    <view name="nucleus_asset_risk_classification"/>
+    <view name="nucleus_asset_matching"/>
+    <view name="nucleus_manage_assets"/>
+    <view name="nucleus_asset_groups"/>
+    <view name="nucleus_edit_assets"/>
+    <view name="nucleus_custom_asset_upload"/>
+    <view name="nucleus_custom_asset_metadata"/>
+    <view name="nucleus_merging_assets"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- DATA INGEST                                                         -->
+  <!-- =================================================================== -->
+  <collection label="Data Ingest">
+    <view name="nucleus_import_history_comparison"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- REPORTS                                                             -->
+  <!-- =================================================================== -->
+  <collection label="Reports">
+    <view name="nucleus_executive_metrics"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- ASSESSMENTS                                                         -->
+  <!-- =================================================================== -->
+  <view name="nucleus_trends_page"/>
+
+  <!-- =================================================================== -->
+  <!-- AUTOMATION                                                          -->
+  <!-- =================================================================== -->
+  <view name="nucleus_custom_dashboards"/>
+
+  <!-- =================================================================== -->
+  <!-- PROJECT ADMINISTRATION                                              -->
+  <!-- =================================================================== -->
+  <collection label="Project Administration">
+    <view name="nucleus_users_roles_permissions"/>
+    <view name="nucleus_teams"/>
+    <view name="nucleus_manage_access_asset_groups_agac"/>
+    <view name="nucleus_weighting_risk"/>
+  </collection>
+
+  <!-- =================================================================== -->
+  <!-- HELP                                                                -->
+  <!-- =================================================================== -->
+  <view name="nucleus_help"/>
+  <view name="nucleus_documentation"/>
+
+  <!-- =================================================================== -->
+  <!-- SUPPORT                                                             -->
+  <!-- =================================================================== -->
+  <view name="nucleus_support"/>
+
+  <!-- =================================================================== -->
+  <!-- ABOUT                                                               -->
+  <!-- =================================================================== -->
+  <view name="nucleus_about"/>
+
+</nav>
